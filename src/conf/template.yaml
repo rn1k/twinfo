@@ -1,0 +1,10 @@
+app:
+  consumerKey: your consumerKey
+  consumerSecret: your consumerSecret
+users:
+  user1:
+    accessToken: accessToken of user1
+    accessSecret: accessSecret of user1
+  user2:
+    accessToken: accessToken of user1
+    accessSecret: accessSecret of user1
