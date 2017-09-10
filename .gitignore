@@ -1,0 +1,4 @@
+.python-version
+.DS_Store
+conf.yaml
+src/__pycache__/
