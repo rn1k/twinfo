@@ -29,7 +29,8 @@ class SQL:
 
     @classmethod
     def __insert_tweet(cls, event_tuple):
-        sql = "INSERT INTO tweet VALUES (?, ?, ?)"
+        # TODO すでに入っている場合
+        sql = "INSERT OR IGNORE INTO tweet VALUES (?, ?, ?)"
         cls.con.execute(sql, event_tuple)
 
     @classmethod

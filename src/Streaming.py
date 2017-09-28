@@ -42,7 +42,11 @@ class EventManager:
                        "time": self.trg_time }
             target = "@{name}: {text} ({time})".format(**output)
             print(target)
-            # pp.pprint(status.target_object)
+        else:
+            self.trg_id = None
+            self.trg_time, self.trg_time_var = None, None
+            self.trg_text = None
+
 
     def __get_event_tuple(self):
         # 通し番号
