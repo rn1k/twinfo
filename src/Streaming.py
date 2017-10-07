@@ -54,10 +54,10 @@ class EventManager:
             self.EVENT_DIC[self.event] = len(self.EVENT_DIC)
 
         event_notif= ( None,
-                    self.trg_id,
+                    self.src_uid,
                     self.EVENT_DIC[self.event],
                     self.trg_uid,
-                    self.src_uid,
+                    self.trg_id,
                     self.time )
         event_tweet = ( self.trg_id,
                         self.trg_text,
