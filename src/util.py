@@ -1,3 +1,4 @@
+import os
 import sqlite3
 from datetime import datetime
 import pytz
@@ -18,7 +19,8 @@ class User:
 
 class SQL:
     """docstring for SQL."""
-    LOG_PATH="data.db"
+    HOME=os.environ["HOME"]
+    LOG_PATH="{HOME}/.twinfo/data.db".format(HOME=HOME)
     con=sqlite3.connect(LOG_PATH)
     c = con.cursor()
 
