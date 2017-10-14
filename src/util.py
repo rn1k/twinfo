@@ -36,7 +36,7 @@ class SQL:
 
     @classmethod
     def __insert_user(cls, event_user):
-        sql = "INSERT OR IGNORE INTO user VALUES (?, ?, ?, ?)"
+        sql = "INSERT OR REPLACE INTO user VALUES (?, ?, ?, ?)"
         cls.con.execute(sql, event_user)
 
     @classmethod
