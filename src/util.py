@@ -43,7 +43,8 @@ class SQL:
     def insert_event(cls, event_tuple):
         cls.__insert_notif(event_tuple[0])
         cls.__insert_tweet(event_tuple[1])
-        cls.__insert_user(event_tuple[2])
+        cls.__insert_user(event_tuple[2]) # src
+        cls.__insert_user(event_tuple[3]) # trg
         cls.con.commit()
 
 def get_time(created_at):

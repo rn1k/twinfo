@@ -33,6 +33,7 @@ class EventManager:
         self.trg_screen_name = status.target["screen_name"]
         self.trg_name = status.target['name']
         self.trg_uid = status.target["id_str"]
+        self.trg_icon = status.target['profile_image_url'].replace('_normal', '')
         if status.event in ["favorite","unfavorite"]:
             self.trg_id = status.target_object['id_str']
             tmp = get_time(status.target_object['created_at'])
@@ -65,11 +66,15 @@ class EventManager:
         event_tweet = ( self.trg_id,
                         self.trg_text,
                         self.trg_time )
-        event_user = ( self.src_uid,
-                       self.src_screen_name,
-                       self.src_name,
-                       self.src_icon )
-        return (event_notif, event_tweet, event_user)
+        event_src_user = ( self.src_uid,
+                           self.src_screen_name,
+                           self.src_name,
+                           self.src_icon )
+        event_trg_user = ( self.trg_uid,
+                           self.trg_screen_name,
+                           self.trg_name,
+                           self.trg_icon )
+        return (event_notif, event_tweet, event_src_user, event_trg_user)
 
     def insert_event(self):
         event_tuple=self.__get_event_tuple()
