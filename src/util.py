@@ -30,15 +30,20 @@ class SQL:
         cls.con.execute(sql, event_notif)
 
     @classmethod
-    def __insert_tweet(cls, event_tuple):
-        # TODO すでに入っている場合
+    def __insert_tweet(cls, event_target):
         sql = "INSERT OR IGNORE INTO tweet VALUES (?, ?, ?)"
-        cls.con.execute(sql, event_tuple)
+        cls.con.execute(sql, event_target)
+
+    @classmethod
+    def __insert_user(cls, event_user):
+        sql = "INSERT OR IGNORE INTO user VALUES (?, ?, ?, ?)"
+        cls.con.execute(sql, event_user)
 
     @classmethod
     def insert_event(cls, event_tuple):
         cls.__insert_notif(event_tuple[0])
         cls.__insert_tweet(event_tuple[1])
+        cls.__insert_user(event_tuple[2])
         cls.con.commit()
 
 def get_time(created_at):

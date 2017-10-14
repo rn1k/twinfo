@@ -21,14 +21,17 @@ class EventManager:
         self.time, self.time_var = get_time(status.created_at)
         # event
         self.event = status.event
-        self.src_name = status.source['screen_name']
-        self.src_uid = status.source["id_str"]
+        self.src_screen_name = status.source['screen_name']
+        self.src_name = status.source['name']
+        self.src_uid = status.source['id_str']
+        self.src_icon = status.source['profile_image_url'].replace('_normal', '')
         # 出力
-        output = {"event": self.event, "name": self.src_name, "time": self.time}
+        output = {"event": self.event, "name": self.src_screen_name, "time": self.time}
         event = "{event} by @{name} ({time})".format(**output)
         print(event)
         # target
-        self.trg_name = status.target["screen_name"]
+        self.trg_screen_name = status.target["screen_name"]
+        self.trg_name = status.target['name']
         self.trg_uid = status.target["id_str"]
         if status.event in ["favorite","unfavorite"]:
             self.trg_id = status.target_object['id_str']
@@ -37,7 +40,7 @@ class EventManager:
             self.trg_text = status.target_object['text']
             self.has_media = ("media" in status.target_object["entities"])
             # 出力
-            output = { "name": self.trg_name,
+            output = { "name": self.trg_screen_name,
                        "text": self.trg_text,
                        "time": self.trg_time }
             target = "@{name}: {text} ({time})".format(**output)
@@ -50,7 +53,7 @@ class EventManager:
 
     def __get_event_tuple(self):
         # 通し番号
-        if self.event not in self.EVENT_DIC:
+        if (self.event not in self.EVENT_DIC):
             self.EVENT_DIC[self.event] = len(self.EVENT_DIC)
 
         event_notif= ( None,
@@ -62,7 +65,11 @@ class EventManager:
         event_tweet = ( self.trg_id,
                         self.trg_text,
                         self.trg_time )
-        return (event_notif, event_tweet)
+        event_user = ( self.src_uid,
+                       self.src_screen_name,
+                       self.src_name,
+                       self.src_icon )
+        return (event_notif, event_tweet, event_user)
 
     def insert_event(self):
         event_tuple=self.__get_event_tuple()
